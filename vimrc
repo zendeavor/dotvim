@@ -3,53 +3,54 @@ let $PAGER=''
 
 " global vim settings
 filetype off
-filetype plugin indent on
+set nocp
+if has("autocmd")
+    " Enable filetype detection
+    filetype plugin indent on
+        
+    " Restore cursor position
+    autocmd BufReadPost *
+        \ if line("'\"""'") > 1 && line("'\"""'") <= line("$") |
+        \   exe "normal! g`\"" |
+        \ endif
+endif
+if &t_Co > 2 || has("gui_running")
+    " Enable syntax highlighting
+    syntax on
+    if &term == 'rxvt-unicode' || &term == 'screen-256color'
+        set t_Co=256
+    endif
+    if  &t_Co == 256
+        colorscheme mustang
+    else
+        colorscheme desert
+    endif
+endif
+if has("syntax")
+    set foldmethod=syntax
+else 
+    set foldmethod=indent
+endif
 highlight Pmenu ctermbg=238 gui=bold
-set modelines=0
 set mouse=a
-set tw=79
 set formatprg=par\ -w79r
-set foldmethod=syntax
-set backup
-set backupdir=~/.vim/backups
-set directory=~/.vim/tmp
-set showcmd
-set showmatch
-set hidden
-set ruler
-set more
-set autoread
-set lazyredraw
-set showmode
-set nocompatible
-set smarttab
-set undofile
-set linebreak
-set ttyfast
-set shell=bash
-set fileformats=unix
-set incsearch
-set ignorecase
-set nohlsearch
+set backup backupdir=~/.vim/backups dir=~/.vim/tmp
+set undofile undodir=~/.vim/undo
+set tabstop=8 shiftwidth=4 softtabstop=4 expandtab smarttab
+set shiftround preserveindent
+set smartindent autoindent cindent
+set showcmd showmode ruler more
+set autoread lazyredraw ttyfast
+set incsearch nohlsearch smartcase
+set lbr ff=unix
 set diffopt=filler,iwhite
 set visualbell t_vb=
-set smartindent autoindent cindent
-set scrolloff=5
-set wrap
-set wildmenu
-set wildmode=list:longest,full
-set tabstop=8
-set shiftwidth=4
-set softtabstop=4
-set expandtab
-set smartcase
-set completeopt=menu,longest,preview
+set scrolloff=5 wrap
+set wildmenu wildmode=list:longest,full
+set completeopt=longest,menuone,preview
 set backspace=2
-set shiftround
-set preserveindent
-set encoding=utf-8
-set fileencoding=utf-8
-set shortmess+=r
+set fileencoding=utf-8 encoding=utf-8
+set shortmess+=atTWI
 set relativenumber
 set gdefault
 set colorcolumn=80
@@ -63,39 +64,23 @@ set statusline=%F%m%r%h%w\
 \T:%04L\ HEX:%03.3B\ ASCII:%03.3b\ %P
 set laststatus=2
 set cmdheight=1
-if has('syntax')
-    syntax on
-    if &term == 'rxvt-unicode'
-        set t_Co=256
-    endif
-    if &term == 'screen-256color'
-        set t_Co=256
-    endif
-    if &t_Co == 256
-        colorscheme mustang
-    else
-        colorscheme desert
-    endif
-endif
+
 autocmd BufEnter * silent! lcd %:p:h:gs/ /\\ /
 
 " global bindings
 let mapleader = ","
 nnoremap <leader>s :Ack
 nnoremap <leader>w <C-w>v<C-w>l
-nnoremap <leader><space> :noh<cr>
-nnoremap <tab> %
-vnoremap <tab> %
 nnoremap / /\v
 vnoremap / /\v
 nmap <leader>f :FufFileWithCurrentBufferDir<CR>
 nmap <leader>b :FufBuffer<CR>
 nmap <leader>t :FufTaggedFile<CR>
 map <leader>0 :source $MYVIMRC<CR>
-"let g:SuperTabDefaultCompletionType = "context"
-"imap <silent> <expr> <buffer> <CR> pumvisible() ? "<CR><C-R>=(col('.')-1&&match(getline(line('.')), '\\.',
-"      \ col('.')-2) == col('.')-2)?\"\<lt>C-X>\<lt>C-O>\":\"\"<CR>"
-"      \ : "<CR>"/
+""imap <silent> <expr> <buffer> <CR> pumvisible() ?\
+""\<CR><C-R>=(col('.')-1&&match(getline(line('.')), '\\.',\
+""\ col('.')-2) == col('.')-2)?\"\<lt><C-X>\<lt><C-O>\":\"\"<CR>"
+""\ : "<CR>"
 cmap w!! %!sudo tee > /dev/null %
 map <right> <ESC>:bn<RETURN>
 map <left> <ESC>:bp<RETURN>

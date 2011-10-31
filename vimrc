@@ -21,6 +21,7 @@ se smartindent autoindent cindent
 se showcmd showmode ruler
 se autoread lazyredraw ttyfast
 se incsearch nohlsearch ignorecase smartcase
+se commentstring=#\%s
 se lbr ff=unix
 se diffopt=filler,iwhite
 se visualbell t_vb=
@@ -46,7 +47,7 @@ au FileType css setlocal omnifunc=csscomplete#CompleteCSS
 au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
-au FileType python setlocal omnifunc=pythoncomplete#Complete
+au FileType python setlocal omnifunc=pythoncomplete#Complete commentstring=#\ %s
 au BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 au FileType c setlocal omnifunc=ccomplete#Complete
@@ -58,6 +59,7 @@ au FileType php setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
 au FileType html,xhtml,xml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 au FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
 au FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+au FileType vim setlocal commentstring=\"%s
 au BufWritePost * if getline(1) =~ "^#!" | if getline(1) =~ "/bin/" | execute 'silent !chmod u+x <afile>' | endif | endif
 au FocusLost * :wa
 au BufWritePost $MYVIMRC so $MYVIMRC
@@ -151,7 +153,7 @@ if &t_Co > 2 || has("gui_running")
         set t_Co=256
     endif
     if  &t_Co == 256
-        colorscheme mustang
+        colorscheme zenburn
     else
         colorscheme desert
     endif
@@ -454,9 +456,6 @@ let g:default_stl .= "%) "
 
 " Padding/HL group
 let g:default_stl .= "#[FunctionName] "
-
-" Function name
-"let g:default_stl .= "<CUR>%(%{cfi#format('%s() |', '')} %)</CUR>"
 
 " Truncate here
 let g:default_stl .= "%<"

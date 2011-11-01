@@ -1,7 +1,9 @@
+se nocp
+filetype off
 call pathogen#infect()
+call pathogen#helptags()
 
 " settings
-se nocp
 "se statusline=%F%m%r%h%w\
 "\ ft:%{&ft}\
 "\ ff:%{&ff}\
@@ -10,32 +12,24 @@ se nocp
 "\ buf:%n\
 "\ L:%04l\ C:%04v\
 "\ T:%04L\ HEX:%03.3B\ ASCII:%03.3b\ %P
-se laststatus=2
-se mouse=a
-se formatprg=par\ -w79r
-se backup backupdir=~/.vim/backups dir=~/.vim/tmp
-se undofile undodir=~/.vim/undo
+filetype on
+se backup backupdir=~/.vim/backups dir=~/.vim/tmp undofile undodir=~/.vim/undo
+se scrolloff=999 sidescroll=50 listchars+=precedes:<,extends:> wrap
+se showcmd showmode ruler cpoptions+=$ shortmess+=atTWI more
+se shiftround preserveindent smartindent autoindent cindent
 se tabstop=8 shiftwidth=4 softtabstop=4 expandtab smarttab
-se shiftround preserveindent
-se smartindent autoindent cindent
-se showcmd showmode ruler
-se autoread lazyredraw ttyfast
+se backspace=2 cmdheight=1 laststatus=2 relativenumber
+se lbr ff=unix fileencoding=utf-8 encoding=utf-8
 se incsearch nohlsearch ignorecase smartcase
-se commentstring=#\%s
-se lbr ff=unix
-se diffopt=filler,iwhite
-se visualbell t_vb=
-se scrolloff=999 wrap
+se formatprg=par\ -w79r pastetoggle=<f10>
 se wildmenu wildmode=list:longest,full
 se completeopt=longest,menuone,preview
-se backspace=2
-se fileencoding=utf-8 encoding=utf-8
-se shortmess+=atTWI more
-se relativenumber
-se gdefault
-se cmdheight=1
 se balloonexpr=Balloon() ballooneval
-se pastetoggle=<f10>
+se autoread lazyredraw ttyfast
+se diffopt=filler,iwhite
+se commentstring=#\%s
+se visualbell t_vb=
+se virtualedit=all
 
 highlight Pmenu ctermbg=238 gui=bold
 
@@ -43,24 +37,8 @@ highlight Pmenu ctermbg=238 gui=bold
 au!
 au BufNewFile *.py TSkeletonSetup template.py
 au BufEnter * silent! lcd %:p:h:gs/ /\\ /
-au FileType css setlocal omnifunc=csscomplete#CompleteCSS
-au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
-au FileType python setlocal omnifunc=pythoncomplete#Complete commentstring=#\ %s
-au BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-au FileType c setlocal omnifunc=ccomplete#Complete
-au FileType vim setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
-au FileType sh setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
-au Filetype lisp,scheme setlocal equalprg=~/.vim/bin/lispindent.lisp expandtab shiftwidth=2 tabstop=8 softtabstop=2
-au FileType ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-au FileType php setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
-au FileType html,xhtml,xml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-au FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
-au FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 au FileType vim setlocal commentstring=\"%s
-au BufWritePost * if getline(1) =~ "^#!" | if getline(1) =~ "/bin/" | execute 'silent !chmod u+x <afile>' | endif | endif
+au BufWritePost * if getline(1) =~ "^#!" | execute 'silent !chmod u+x <afile>' | endif
 au FocusLost * :wa
 au BufWritePost $MYVIMRC so $MYVIMRC
 

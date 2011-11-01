@@ -33,9 +33,9 @@ se fileencoding=utf-8 encoding=utf-8
 se shortmess+=atTWI more
 se relativenumber
 se gdefault
-se colorcolumn=80
 se cmdheight=1
 se balloonexpr=Balloon() ballooneval
+se pastetoggle=<f10>
 
 highlight Pmenu ctermbg=238 gui=bold
 
@@ -69,6 +69,7 @@ let mapleader = ","
 map <right> <ESC>:bn<RETURN>
 map <left> <ESC>:bp<RETURN>
 command! -bar -nargs=0 W  silent! exec "write !sudo tee % >/dev/null"  | silent! edit!
+cno jj <c-c>
 "im <silent> <expr> <CR> pumvisible() ?
 "            \ <CR><C-R>=(col('.')-1&&match(getline(line('.')), '\\.',
 "            \ col('.')-2) == col('.')-2)?\"\<lt><C-X>\<lt><C-O>\":\"\"<CR>"
@@ -89,6 +90,7 @@ ino <expr> <BS> neocomplcache#smart_close_popup()."\<C-h>"
 ino <expr> <C-y> neocomplcache#close_popup()
 ino <expr> <C-e> neocomplcache#cancel_popup()
 ino jj <esc>
+ino <leader>; <c-c>
 vn / /\v
 vn < <gv
 vn > >gv
@@ -96,6 +98,8 @@ vn v <esc>
 nn <leader>f :FufFileWithCurrentBufferDir<CR>
 nn <leader>b :FufBuffer<CR>
 nn <leader>t :FufTaggedFile<CR>
+nn <leader>c :copen<CR>
+nn <leader>cc :cclose<CR>
 nn <c-j> <c-w>j
 nn <c-k> <c-w>k
 nn <c-l> <c-w>l
@@ -109,7 +113,7 @@ nn <silent> <leader><bslash> :call ToggleIndentGuidesSpaces()<cr>
 nn <leader>ve :tabedit $MYVIMRC<CR>
 nn <leader>vs :source $MYVIMRC<CR>:filetype detect<CR>:echo 'vimrc reloaded'<CR>
 nn <silent> <leader>y :YRShow<CR>
-nn <leader>s :Ack
+nn <leader>s :Ack<space>
 nn <leader>w <C-w>v<C-w>l
 nn ; :
 nn : ;
@@ -123,7 +127,7 @@ xn < <gv
 
 " variable settings
 let $PAGER=''
-let g:tskelUserEmail = "<j dot s dot mcgee115 at gmail dot com"
+let g:tskelUserEmail = "<j dot s dot mcgee115 at gmail dot com>"
 let g:tskelUserName = "Josh McGee"
 let g:tskeleton#enable_stakeholders = 1
 let g:acp_enableAtStartup = 0
@@ -137,6 +141,10 @@ let g:neocomplcache_enable_auto_select = 1
 let javascript_enable_domhtmlcss=1
 let pymode_rope_extended_complete=1
 let g:yankring_history_dir = '$HOME/.cache/vim'
+let g:ultisnips_python_style = "doxygen"
+let g:UltiSnipsExpandTrigger = "<s-tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " expressions
 if has("au")
@@ -495,6 +503,26 @@ let g:default_stl .= "#[LinePercent] %p%%"
 " Current syntax group
 "let g:default_stl .= "%{exists('g:synid') && g:synid ? '| '.synIDattr(synID(line('.'), col('.'), 1), 'name').' ' : ''}"
 
+" highlight characters starting at column 80
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%80v.\+/
+if exists('+colorcolumn')
+    highlight ColorColumn ctermbg=darkgrey
+    set colorcolumn=0
+    " toggle colorcolumn
+    let s:color_column_old = "5,9,13,17,21,25,80"
+    function! s:ToggleMargin()
+        if s:color_column_old == 0
+            let s:color_column_old = &colorcolumn
+            windo let &colorcolumn = 0
+        else
+            windo let &colorcolumn = s:color_column_old
+            let s:color_column_old = 0
+        endif
+    endfunction
+endif
+nmap <leader>M :call <SID>ToggleMargin()<CR>
+
 " Autocommands {{{2
 augroup StatusLineHighlight
     autocmd!
@@ -505,3 +533,4 @@ augroup StatusLineHighlight
     au BufLeave,BufWinLeave,WinLeave,CmdwinLeave * call <SID>StatusLine((exists('b:stl') ? b:stl : g:default_stl), 'Normal', 0)
     au InsertEnter,CursorHoldI * call <SID>StatusLine((exists('b:stl') ? b:stl : g:default_stl), 'Insert', 1)
 augroup END
+

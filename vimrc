@@ -30,6 +30,7 @@ se diffopt=filler,iwhite
 se commentstring=#\%s
 se visualbell t_vb=
 se virtualedit=all
+se hidden
 
 highlight Pmenu ctermbg=238 gui=bold
 

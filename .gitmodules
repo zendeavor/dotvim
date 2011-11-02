@@ -73,3 +73,9 @@
 [submodule "bundle/ultisnips"]
 	path = bundle/ultisnips
 	url = https://github.com/vim-scripts/UltiSnips.git
+[submodule "molokai"]
+	path = molokai
+	url = https://github.com/tomasr/molokai.git
+[submodule "colors/molokai"]
+	path = colors/molokai
+	url = https://github.com/tomasr/molokai.git

@@ -70,6 +70,7 @@ ino <expr> <C-y> neocomplcache#close_popup()
 ino <expr> <C-e> neocomplcache#cancel_popup()
 ino jj <esc>
 ino <leader>; <c-c>
+vn <c-e> ,
 vn / /\v
 vn < <gv
 vn > >gv
@@ -77,8 +78,8 @@ vn v <esc>
 nn <leader>f :FufFileWithCurrentBufferDir<CR>
 nn <leader>b :FufBuffer<CR>
 nn <leader>t :FufTaggedFile<CR>
-nn <leader>c :copen<CR>
-nn <leader>cc :cclose<CR>
+nn <leader>q :copen<CR>
+nn <leader>qq :cclose<CR>
 nn <c-j> <c-w>j
 nn <c-k> <c-w>k
 nn <c-l> <c-w>l
@@ -106,6 +107,7 @@ xn < <gv
 
 " variable settings
 let $PAGER=''
+let g:html_number_lines = 0
 let g:tskelUserEmail = "<j dot s dot mcgee115 at gmail dot com>"
 let g:tskelUserName = "Josh McGee"
 let g:tskeleton#enable_stakeholders = 1

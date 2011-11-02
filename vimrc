@@ -14,12 +14,12 @@ call pathogen#helptags()
 "\ T:%04L\ HEX:%03.3B\ ASCII:%03.3b\ %P
 filetype on
 se backup backupdir=~/.vim/backups dir=~/.vim/tmp undofile undodir=~/.vim/undo
-se scrolloff=999 sidescroll=50 listchars+=precedes:<,extends:> wrap
+se backspace=2 cmdheight=1 laststatus=2 relativenumber showbreak=»
+se scrolloff=999 sidescroll=50 listchars+=precedes:<,extends:> 
 se showcmd showmode ruler cpoptions+=$ shortmess+=atTWI more
 se shiftround preserveindent smartindent autoindent cindent
 se tabstop=8 shiftwidth=4 softtabstop=4 expandtab smarttab
-se backspace=2 cmdheight=1 laststatus=2 relativenumber
-se lbr ff=unix fileencoding=utf-8 encoding=utf-8
+se ff=unix fileencoding=utf-8 encoding=utf-8
 se incsearch nohlsearch ignorecase smartcase
 se formatprg=par\ -w79r pastetoggle=<f10>
 se wildmenu wildmode=list:longest,full
@@ -36,18 +36,21 @@ highlight Pmenu ctermbg=238 gui=bold
 
 " autocommands
 au!
-au BufNewFile *.py TSkeletonSetup template.py
-au BufEnter * silent! lcd %:p:h:gs/ /\\ /
-au FileType vim setlocal commentstring=\"%s
-au BufWritePost * if getline(1) =~ "^#!" | execute 'silent !chmod u+x <afile>' | endif
-au FocusLost * :wa
-au BufWritePost $MYVIMRC so $MYVIMRC
+if has("autocmd")
+    au BufNewFile *.py TSkeletonSetup template.py
+    au BufEnter * silent! lcd %:p:h:gs/ /\\ /
+    au FileType vim setlocal commentstring=\"%s
+    au BufWritePost * if getline(1) =~ "^#!" | execute 'silent !chmod u+x <afile>' | endif
+    au FocusLost * :wa
+    au BufWritePost $MYVIMRC so $MYVIMRC
+endif
 
 " mappings
 let mapleader = ","
 map <right> <ESC>:bn<RETURN>
 map <left> <ESC>:bp<RETURN>
 command! -bar -nargs=0 W  silent! exec "write !sudo tee % >/dev/null"  | silent! edit!
+command! -nargs=* Wrap set wrap linebreak nolist
 cno jj <c-c>
 "im <silent> <expr> <CR> pumvisible() ?
 "            \ <CR><C-R>=(col('.')-1&&match(getline(line('.')), '\\.',
@@ -123,12 +126,12 @@ let javascript_enable_domhtmlcss=1
 let pymode_rope_extended_complete=1
 let g:yankring_history_dir = '$HOME/.cache/vim'
 let g:ultisnips_python_style = "doxygen"
-let g:UltiSnipsExpandTrigger = "<s-tab>"
+let g:UltiSnipsExpandTrigger = "<C-tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " expressions
-if has("au")
+if has("autocmd")
     filetype plugin indent on
         
     au BufReadPost *
@@ -146,6 +149,11 @@ if &t_Co > 2 || has("gui_running")
     else
         colorscheme desert
     endif
+endif
+
+if has("gui_running")
+    set guifont=Envy\ Code\ R\ 10
+    colorscheme molokai
 endif
 if has("syntax")
     set foldmethod=syntax

@@ -12,46 +12,53 @@ call pathogen#helptags()
 "\ buf:%n\
 "\ L:%04l\ C:%04v\
 "\ T:%04L\ HEX:%03.3B\ ASCII:%03.3b\ %P
-filetype on
+" use :help <option> to learn what these do, no sense in commenting them
 se backup backupdir=~/.vim/backups dir=~/.vim/tmp undofile undodir=~/.vim/undo
 se foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 se backspace=2 cmdheight=1 laststatus=2 relativenumber showbreak=»
 se scrolloff=999 sidescroll=50 listchars+=precedes:<,extends:> 
-se showcmd showmode ruler cpoptions+=$ shortmess+=atTWI more
+se showcmd showmode ruler cpoptions+=n$n shortmess+=atTWI more
 se shiftround preserveindent smartindent autoindent cindent
 se tabstop=8 shiftwidth=4 softtabstop=4 expandtab smarttab
 se ff=unix fileencoding=utf-8 encoding=utf-8
-se incsearch nohlsearch ignorecase smartcase
 se formatprg=par\ -w79r pastetoggle=<f10>
 se wildmenu wildmode=list:longest,full
 se completeopt=longest,menuone,preview
 se balloonexpr=Balloon() ballooneval
+se incsearch ignorecase smartcase
 se autoread lazyredraw ttyfast
 se diffopt=filler,iwhite
 se commentstring=#\%s
 se guioptions=acm
-se cpoptions=ces$
 se visualbell t_vb=
 se virtualedit=all
 se hidden
 
-highlight Pmenu ctermbg=238 gui=bold
+"highlight Pmenu ctermbg=238 gui=bold
 
 " autocommands
 au!
 if has("autocmd")
+    filetype plugin indent on
+        
+    au BufReadPost *
+        \ if line("'\"") > 1 && line("'\"") <= line("$") |
+        \   exe "normal! g`\"" |
+        \ endif
     " fill out new python scripts with template
     au BufNewFile *.py TSkeletonSetup template.py
     " set cwd to dir of current file in open buffer
     au BufEnter * silent! lcd %:p:h:gs/ /\\ /
-    " set commentstring for vim's filetype
-    au FileType vim setlocal commentstring=\"%s
     " make scripts starting with a shebang executable after saving
-    au BufWritePost * if getline(1) =~ "^#!" | execute 'silent !chmod u+x <afile>' | endif
+    au BufWritePost * if getline(1) =~ "^#!" | exec 'silent !chmod u+x <afile>' | endif
     " write out changes to a file when focus is lost from that buffer
     au FocusLost * :wa
     " source vimrc right after it is saved to test changes
     au BufWritePost $MYVIMRC so $MYVIMRC
+    " set commentstring for vim's filetype
+    au FileType vim setlocal commentstring=\"%s
+    " set tabs up for zsh files
+    au FileType zsh setlocal sw=2 softtabstop=2
 endif
 
 " command mode
@@ -71,9 +78,9 @@ nn <leader>vs :source $MYVIMRC<CR>:filetype detect<CR>:echo 'vimrc reloaded'<CR>
 nn <leader>ve :tabedit $MYVIMRC<CR>
 " open a new empty file in pwd
 nn <leader>e :enew<CR>
-" remap arrow keys to switch buffers
-map <right> <ESC>:bn<RETURN>
-map <left> <ESC>:bp<RETURN>
+" remap arrow keys to switch buffers (broken -_-)
+map <right> <ESC>:bn<CR>
+map <left> <ESC>:bp<CR>
 " paste from X clipboard <broken?>
 map <leader>p “+p
 map <leader>P “+P
@@ -83,6 +90,7 @@ ino jj <esc>
 " ctrl-c claw hand sucks
 ino <leader>; <c-c>
 " change search mode to use <python/perl??> style regex
+nn / /\v
 vn / /\v
 " reselect text when indenting in visual and ex modes
 vn < <gv
@@ -112,18 +120,8 @@ nn : ;
 " show indent guide
 nn <silent> <leader><bar> :call ToggleIndentGuidesTabs()<cr>
 nn <silent> <leader><bslash> :call ToggleIndentGuidesSpaces()<cr>
-nn / /\v
-nn <leader>u :GundoToggle<CR>
-nn <silent> <leader>y :YRShow<CR>
-nn <leader>s :Ack<space>
-
-" show indent guide
-nn <silent> <leader><bar> :call ToggleIndentGuidesTabs()<cr>
-nn <silent> <leader><bslash> :call ToggleIndentGuidesSpaces()<cr>
-
 " show yankring
 nn <silent> <leader>y :YRShow<CR>
-
 " use ack to search
 nn <leader>s :Ack<space>
 
@@ -162,11 +160,16 @@ ino <expr> <C-e> neocomplcache#cancel_popup()
 smap <C-k> <Plug>(neocomplcache_snippets_expand)
 
 " variable settings
+" unset PAGER, so as to make vim handy as a pager
 let $PAGER=''
+" :TOhtml, don't convert line numbers
 let g:html_number_lines = 0
+" tskeleton settings for templates
 let g:tskelUserEmail = "<j dot s dot mcgee115 at gmail dot com>"
 let g:tskelUserName = "Josh McGee"
+" allow tskel to use stakeholders plugin
 let g:tskeleton#enable_stakeholders = 1
+" neocomplcache
 let g:acp_enableAtStartup = 0
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
@@ -176,22 +179,20 @@ let g:neocomplcache_min_syntax_length = 2
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplcache_enable_auto_select = 1
 let javascript_enable_domhtmlcss=1
+" python mode extended completion
 let pymode_rope_extended_complete=1
+" dir where yankring is stored
 let g:yankring_history_dir = '$HOME/.cache/vim'
-let g:ultisnips_python_style = "doxygen"
+" ultisnips bindings
 let g:UltiSnipsExpandTrigger = "<C-tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+" use doxygen style comments in snippet
+let g:ultisnips_python_style = "doxygen"
 
 " expressions
-if has("autocmd")
-    filetype plugin indent on
-        
-    au BufReadPost *
-        \ if line("'\"") > 1 && line("'\"") <= line("$") |
-        \   exe "normal! g`\"" |
-        \ endif
-endif
+" determine colorscheme based on TERM
+" we don't want 256color when terminfo does not support
 if &t_Co > 2 || has("gui_running")
     syntax on
     if (&term =~ 'rxvt-unicode' || &term =~ 'screen-256color')
@@ -204,12 +205,16 @@ if &t_Co > 2 || has("gui_running")
     endif
 endif
 
+" set font and colorscheme for gvim
 if has("gui_running")
     set guifont=Envy\ Code\ R\ 10
     colorscheme molokai
 endif
+
+" set foldmethod for files with syntax hiliting 
 if has("syntax")
     set foldmethod=syntax
+" set foldmethod for files without syntax hiliting
 else 
     set foldmethod=indent
 endif

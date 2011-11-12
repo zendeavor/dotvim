@@ -199,7 +199,7 @@ if &t_Co > 2 || has("gui_running")
         set t_Co=256
     endif
     if  &t_Co == 256
-        colorscheme zenburn
+        colorscheme wombat
     else
         colorscheme desert
     endif
@@ -208,7 +208,7 @@ endif
 " set font and colorscheme for gvim
 if has("gui_running")
     set guifont=Envy\ Code\ R\ 10
-    colorscheme molokai
+    colorscheme wombat
 endif
 
 " set foldmethod for files with syntax hiliting 

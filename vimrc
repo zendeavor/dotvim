@@ -17,7 +17,7 @@ se backup backupdir=~/.vim/backups dir=~/.vim/tmp undofile undodir=~/.vim/undo
 se foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 se backspace=2 cmdheight=1 laststatus=2 relativenumber showbreak=»
 se scrolloff=999 sidescroll=50 listchars+=precedes:<,extends:> 
-se showcmd showmode ruler cpoptions+=n$n shortmess+=atTWI more
+se showcmd showmode ruler cpoptions+=n$ shortmess+=atTWI more
 se shiftround preserveindent smartindent autoindent cindent
 se tabstop=8 shiftwidth=4 softtabstop=4 expandtab smarttab
 se ff=unix fileencoding=utf-8 encoding=utf-8
@@ -199,7 +199,7 @@ if &t_Co > 2 || has("gui_running")
         set t_Co=256
     endif
     if  &t_Co == 256
-        colorscheme wombat
+        colorscheme wombat256mod
     else
         colorscheme desert
     endif
@@ -208,7 +208,7 @@ endif
 " set font and colorscheme for gvim
 if has("gui_running")
     set guifont=Envy\ Code\ R\ 10
-    colorscheme wombat
+    colorscheme wombat256mod
 endif
 
 " set foldmethod for files with syntax hiliting 

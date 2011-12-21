@@ -4,15 +4,6 @@ call pathogen#infect()
 call pathogen#helptags()
 
 " settings
-"se statusline=%F%m%r%h%w\
-"\ ft:%{&ft}\
-"\ ff:%{&ff}\
-"\ %{strftime(\"%a\ %d/%m/%Y\
-"\ %H:%M:%S\",getftime(expand(\"%:p\")))}%=\
-"\ buf:%n\
-"\ L:%04l\ C:%04v\
-"\ T:%04L\ HEX:%03.3B\ ASCII:%03.3b\ %P
-" use :help <option> to learn what these do, no sense in commenting them
 se backup backupdir=~/.vim/backups dir=~/.vim/tmp undofile undodir=~/.vim/undo
 se foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 se backspace=2 cmdheight=1 laststatus=2 relativenumber showbreak=»
@@ -50,15 +41,18 @@ if has("autocmd")
     " set cwd to dir of current file in open buffer
     au BufEnter * silent! lcd %:p:h:gs/ /\\ /
     " make scripts starting with a shebang executable after saving
-    au BufWritePost * if getline(1) =~ "^#!" | exec 'silent !chmod u+x <afile>' | endif
+    au BufWritePost * 
+        \ if getline(1) =~ "^#!" | 
+        \   exec 'silent !chmod u+x <afile>' | 
+        \ endif
     " write out changes to a file when focus is lost from that buffer
     au FocusLost * :wa
     " source vimrc right after it is saved to test changes
     au BufWritePost $MYVIMRC so $MYVIMRC
     " set commentstring for vim's filetype
     au FileType vim setlocal commentstring=\"%s
-    " set tabs up for zsh files
-    au FileType zsh setlocal sw=2 softtabstop=2
+    " set tabs up for shell files
+    au FileType zsh,sh,bash setlocal sw=2 softtabstop=2
 endif
 
 " command mode
@@ -76,14 +70,14 @@ vn <c-e> ,
 " source/edit vimrc
 nn <leader>vs :source $MYVIMRC<CR>:filetype detect<CR>:echo 'vimrc reloaded'<CR>
 nn <leader>ve :tabedit $MYVIMRC<CR>
-" open a new empty file in pwd
+" open a new empty file in cwd
 nn <leader>e :enew<CR>
 " remap arrow keys to switch buffers (broken -_-)
 map <right> <ESC>:bn<CR>
 map <left> <ESC>:bp<CR>
 " paste from X clipboard <broken?>
-map <leader>p “+p
-map <leader>P “+P
+map <silent> <leader>p "+p
+map <silent> <leader>P "+P
 " return to normal mode with jj 
 cno jj <c-c>
 ino jj <esc>
@@ -100,8 +94,8 @@ xn < <gv
 " tap v to return to normal mode
 vn v <esc>
 " open/close quickfix window
-nn <leader>q :copen<CR>
-nn <leader>qq :cclose<CR>
+nn <silent> <leader>q :copen<CR>
+nn <silent> <leader>qq :cclose<CR>
 " window movement
 nn <leader>w <C-w>v<C-w>l
 nn <c-j> <c-w>j
@@ -123,7 +117,7 @@ nn <silent> <leader><bslash> :call ToggleIndentGuidesSpaces()<cr>
 " show yankring
 nn <silent> <leader>y :YRShow<CR>
 " use ack to search
-nn <leader>s :Ack<space>
+nn <leader>sa :Ack<space>
 
 " fuzzyfinder mappings
 nn <leader>f :FufFileWithCurrentBufferDir<CR>
@@ -152,7 +146,7 @@ ino <expr> <C-n> pumvisible() ? '<C-n>' :
 im <expr> <TAB> neocomplcache#sources#snippets_complete#expandable() ?
             \"\<Plug>(neocomplcache_snippets_expand)" :pumvisible() ? 
             \"\<C-n>" : "\<TAB>"
-im <C-k> <Plug>(neocomplcache_snippets_expand) " this didn't work as well as <tab> below
+" im <C-k> <Plug>(neocomplcache_snippets_expand) " this didn't work as well as <tab> below
 ino <expr> <C-h> neocomplcache#smart_close_popup()."\<C-h>"
 ino <expr> <BS> neocomplcache#smart_close_popup()."\<C-h>"
 ino <expr> <C-y> neocomplcache#close_popup()
@@ -539,7 +533,7 @@ let g:default_stl .= "%{&expandtab ? 'S' : 'T'}"
 let g:default_stl .= "#[LineColumn]:%{&tabstop}:%{&softtabstop}:%{&shiftwidth}"
 
 " Unicode codepoint
-"let g:default_stl .= '<CUR>#[LineNumber] U+%04B</CUR>'
+let g:default_stl .= '<CUR>#[LineNumber] U+%04B</CUR>'
 
 " Line/column/virtual column, Line percentage
 let g:default_stl .= "#[LineNumber] %04(%l%)#[LineColumn]:%03(%c%V%) "

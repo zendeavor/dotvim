@@ -106,3 +106,7 @@
 	path = colors/molokai
 	url = https://github.com/tomasr/molokai.git
         ignore = dirty
+[submodule "bundle/phpindent"]
+	path = bundle/phpindent
+	url = https://github.com/2072/PHP-Indenting-for-VIm.git
+        ignore = dirty

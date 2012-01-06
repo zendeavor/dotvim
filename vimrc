@@ -20,8 +20,8 @@ se incsearch ignorecase smartcase
 se autoread lazyredraw ttyfast
 se diffopt=filler,iwhite
 se commentstring=#\%s
-se guioptions=acm
 se visualbell t_vb=
+se guioptions-=r guioptions-=L guioptions-=T
 se virtualedit=all
 se hidden
 
@@ -202,7 +202,6 @@ endif
 " set font and colorscheme for gvim
 if has("gui_running")
     set guifont=Envy\ Code\ R\ 10
-    colorscheme wombat256mod
 endif
 
 " set foldmethod for files with syntax hiliting 

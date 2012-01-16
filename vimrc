@@ -31,26 +31,28 @@ se hidden
 au!
 if has("autocmd")
     filetype plugin indent on
-        
+
     au BufReadPost *
-        \ if line("'\"") > 1 && line("'\"") <= line("$") |
-        \   exe "normal! g`\"" |
-        \ endif
+                \ if line("'\"") > 1 && line("'\"") <= line("$") |
+                \   exe "normal! g`\"" |
+                \ endif
     " fill out new python scripts with template
     au BufNewFile *.py TSkeletonSetup template.py
     " set cwd to dir of current file in open buffer
     au BufEnter * silent! lcd %:p:h:gs/ /\\ /
     " make scripts starting with a shebang executable after saving
     au BufWritePost * 
-        \ if getline(1) =~ "^#!" | 
-        \   exec 'silent !chmod u+x <afile>' | 
-        \ endif
+                \ if getline(1) =~ "^#!" | 
+                \   exec 'silent !chmod u+x <afile>' | 
+                \ endif
     " write out changes to a file when focus is lost from that buffer
     au FocusLost * :wa
     " source vimrc right after it is saved to test changes
     au BufWritePost $MYVIMRC so $MYVIMRC
     " set commentstring for vim's filetype
     au FileType vim setlocal commentstring=\"%s
+    " set commentstring for php filetype
+    au FileType php setlocal commentstring=//%s
     " set tabs up for shell files
     au FileType zsh,sh,bash setlocal sw=2 softtabstop=2
 endif
@@ -94,8 +96,8 @@ xn < <gv
 " tap v to return to normal mode
 vn v <esc>
 " open/close quickfix window
-nn <silent> <leader>q :copen<CR>
-nn <silent> <leader>qq :cclose<CR>
+nn <silent> <leader>qo :copen<CR>
+nn <silent> <leader>qc :cclose<CR>
 " window movement
 nn <leader>w <C-w>v<C-w>l
 nn <c-j> <c-w>j
@@ -207,7 +209,7 @@ endif
 " set foldmethod for files with syntax hiliting 
 if has("syntax")
     set foldmethod=syntax
-" set foldmethod for files without syntax hiliting
+    " set foldmethod for files without syntax hiliting
 else 
     set foldmethod=indent
 endif
@@ -320,25 +322,25 @@ endfunction
 
 " some colors
 let s:statuscolors = {
-    \ 'ModeNormal' : [[ '#4e9a06', '#ffffff', 'bold'], [ ]],
-    \ 'ModeInsert' : [[ '#cc0000', '#ffffff', 'bold'], [ ]],
-    \ 'FileName' : [[ '#c2bfa5', '#000000', 'bold'], [ '#1c1c1c', '#808080', 'none']],
-    \ 'ModFlag' : [[ '#c2bfa5', '#cc0000', 'bold'], [ '#1c1c1c', '#4e4e4e', 'none']],
-    \ 'BufFlag' : [[ '#c2bfa5', '#000000', 'none'], [ '#1c1c1c', '#4e4e4e', 'none']],
-    \ 'FileType' : [[ '#585858', '#bcbcbc', 'none'], [ '#080808', '#4e4e4e', 'none']],
-    \ 'Branch' : [[ '#585858', '#bcbcbc', 'none'], [ '#1c1c1c', '#4e4e4e', 'none']],
-    \ 'BranchS' : [[ '#585858', '#949494', 'none'], [ '#1c1c1c', '#4e4e4e', 'none']],
-    \ 'FunctionName' : [[ '#1c1c1c', '#9e9e9e', 'none'], [ '#080808', '#4e4e4e', 'none']],
-    \ 'FileFormat' : [[ '#1c1c1c', '#bcbcbc', 'bold'], [ '#080808', '#4e4e4e', 'none']],
-    \ 'FileEncoding' : [[ '#1c1c1c', '#bcbcbc', 'bold'], [ '#080808', '#4e4e4e', 'none']],
-    \ 'Separator' : [[ '#1c1c1c', '#6c6c6c', 'none'], [ '#080808', '#4e4e4e', 'none']],
-    \ 'ExpandTab' : [[ '#585858', '#eeeeee', 'bold'], [ '#1c1c1c', '#808080', 'none']],
-    \ 'LineNumber' : [[ '#585858', '#bcbcbc', 'bold'], [ '#1c1c1c', '#808080', 'none']],
-    \ 'LineColumn' : [[ '#585858', '#bcbcbc', 'none'], [ '#1c1c1c', '#4e4e4e', 'none']],
-    \ 'LinePercent' : [[ '#c2bfa5', '#303030', 'bold'], [ '#1c1c1c', '#4e4e4e', 'none']],
-    \ 'Warning' : [[ '#cc0000', '#ffffff', 'bold'], [ '#1c1c1c', '#808080', 'none']],
-    \ 'Error' : [[ '#585858', '#ff5f00', 'bold'], [ '#1c1c1c', '#4e4e4e', 'none']]
-\ }
+            \ 'ModeNormal' : [[ '#4e9a06', '#ffffff', 'bold'], [ ]],
+            \ 'ModeInsert' : [[ '#cc0000', '#ffffff', 'bold'], [ ]],
+            \ 'FileName' : [[ '#c2bfa5', '#000000', 'bold'], [ '#1c1c1c', '#808080', 'none']],
+            \ 'ModFlag' : [[ '#c2bfa5', '#cc0000', 'bold'], [ '#1c1c1c', '#4e4e4e', 'none']],
+            \ 'BufFlag' : [[ '#c2bfa5', '#000000', 'none'], [ '#1c1c1c', '#4e4e4e', 'none']],
+            \ 'FileType' : [[ '#585858', '#bcbcbc', 'none'], [ '#080808', '#4e4e4e', 'none']],
+            \ 'Branch' : [[ '#585858', '#bcbcbc', 'none'], [ '#1c1c1c', '#4e4e4e', 'none']],
+            \ 'BranchS' : [[ '#585858', '#949494', 'none'], [ '#1c1c1c', '#4e4e4e', 'none']],
+            \ 'FunctionName' : [[ '#1c1c1c', '#9e9e9e', 'none'], [ '#080808', '#4e4e4e', 'none']],
+            \ 'FileFormat' : [[ '#1c1c1c', '#bcbcbc', 'bold'], [ '#080808', '#4e4e4e', 'none']],
+            \ 'FileEncoding' : [[ '#1c1c1c', '#bcbcbc', 'bold'], [ '#080808', '#4e4e4e', 'none']],
+            \ 'Separator' : [[ '#1c1c1c', '#6c6c6c', 'none'], [ '#080808', '#4e4e4e', 'none']],
+            \ 'ExpandTab' : [[ '#585858', '#eeeeee', 'bold'], [ '#1c1c1c', '#808080', 'none']],
+            \ 'LineNumber' : [[ '#585858', '#bcbcbc', 'bold'], [ '#1c1c1c', '#808080', 'none']],
+            \ 'LineColumn' : [[ '#585858', '#bcbcbc', 'none'], [ '#1c1c1c', '#4e4e4e', 'none']],
+            \ 'LinePercent' : [[ '#c2bfa5', '#303030', 'bold'], [ '#1c1c1c', '#4e4e4e', 'none']],
+            \ 'Warning' : [[ '#cc0000', '#ffffff', 'bold'], [ '#1c1c1c', '#808080', 'none']],
+            \ 'Error' : [[ '#585858', '#ff5f00', 'bold'], [ '#1c1c1c', '#4e4e4e', 'none']]
+            \ }
 
 function! s:StatusLineColors(colors)
     for name in keys(a:colors)
@@ -347,16 +349,16 @@ function! s:StatusLineColors(colors)
 
         if exists("colors['c'][0]")
             exec 'hi StatusLine' . name .
-               \ ' guibg=' . colors['c'][0] .
-               \ ' guifg=' . colors['c'][1] .
-               \ ' gui=' . colors['c'][2]
+                        \ ' guibg=' . colors['c'][0] .
+                        \ ' guifg=' . colors['c'][1] .
+                        \ ' gui=' . colors['c'][2]
         endif
 
         if exists("colors['nc'][0]")
             exec 'hi StatusLine' . name . 'NC' .
-               \ ' guibg=' . colors['nc'][0] .
-               \ ' guifg=' . colors['nc'][1] .
-               \ ' gui=' . colors['nc'][2]
+                        \ ' guibg=' . colors['nc'][0] .
+                        \ ' guifg=' . colors['nc'][1] .
+                        \ ' gui=' . colors['nc'][2]
         endif
     endfor
 endfunction
@@ -366,34 +368,34 @@ function! s:StatusLine(new_stl, type, current)
     let current = (a:current ? "" : "NC")
     let new_stl = a:new_stl
 
-" Prepare current buffer specific text
-" Syntax: <CUR> ... </CUR>
+    " Prepare current buffer specific text
+    " Syntax: <CUR> ... </CUR>
     let new_stl = substitute(new_stl, '<CUR>\(.\{-,}\)</CUR>', (a:current ? '\1' : ''), 'g')
 
-" Prepare statusline colors
-" Syntax: #[ ... ]
+    " Prepare statusline colors
+    " Syntax: #[ ... ]
     let new_stl = substitute(new_stl, '#\[Mode\]', '%#StatusLineMode' . a:type . '#', 'g')
     let new_stl = substitute(new_stl, '#\[\(\w\+\)\]',
-                           \ '%#StatusLine' . '\1' . current . '#', 'g')
+                \ '%#StatusLine' . '\1' . current . '#', 'g')
 
     if &l:statusline ==# new_stl
-" Statusline already set, nothing to do
+        " Statusline already set, nothing to do
         return
     endif
 
     if empty(&l:statusline)
-" No statusline is set, use new_stl
+        " No statusline is set, use new_stl
         let &l:statusline = new_stl
     else
-" Check if a custom statusline is set
+        " Check if a custom statusline is set
         let plain_stl = substitute(&l:statusline, '%#StatusLine\w\+#', '', 'g')
 
         if &l:statusline ==# plain_stl
-" A custom statusline is set, don't modify
+            " A custom statusline is set, don't modify
             return
         endif
 
-" No custom statusline is set, use new_stl
+        " No custom statusline is set, use new_stl
         let &l:statusline = new_stl
     endif
 endfunction

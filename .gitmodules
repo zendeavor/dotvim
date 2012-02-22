@@ -98,10 +98,6 @@
 	path = bundle/ultisnips
 	url = https://github.com/vim-scripts/UltiSnips.git
         ignore = dirty
-[submodule "molokai"]
-	path = molokai
-	url = https://github.com/tomasr/molokai.git
-        ignore = dirty
 [submodule "colors/molokai"]
 	path = colors/molokai
 	url = https://github.com/tomasr/molokai.git

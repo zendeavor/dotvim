@@ -106,3 +106,7 @@
 	path = bundle/phpindent
 	url = https://github.com/2072/PHP-Indenting-for-VIm.git
         ignore = dirty
+[submodule "bundle/pydoc"]
+	path = bundle/pydoc
+	url = https://github.com/fs111/pydoc.vim.git
+        ignore = dirty

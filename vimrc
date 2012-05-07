@@ -1,3 +1,4 @@
+" initial options to make things work right
 se nocp
 filetype off
 call pathogen#infect()

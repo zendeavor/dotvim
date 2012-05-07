@@ -54,12 +54,12 @@ if has("autocmd")
     " set commentstring for php filetype
     au FileType php setlocal commentstring=//%s
     " set tabs up for shell files
-    au FileType zsh,sh,bash setlocal sw=2 softtabstop=2
+    au FileType zsh,sh setlocal sw=2 softtabstop=2
 endif
 
 " command mode
 " :W will save current file with sudo for when i don't have write permissions
-command! -bar -nargs=0 W  silent! exec "write !sudo tee % >/dev/null"  | silent! edit!
+command! -bar -nargs=0 W silent! exec "write !sudo tee % >/dev/null"  | silent! edit!
 " :Wrap will softwrap a file safely
 command! -nargs=* Wrap set wrap linebreak nolist
 
@@ -158,6 +158,9 @@ smap <C-k> <Plug>(neocomplcache_snippets_expand)
 " variable settings
 " unset PAGER, so as to make vim handy as a pager
 let $PAGER=''
+" open text files from pastebins 
+let g:netrw_html_cmd = "curl"
+let g:netrw_html_xcmd = "-so"
 " :TOhtml, don't convert line numbers
 let g:html_number_lines = 0
 " tskeleton settings for templates
@@ -191,7 +194,7 @@ let g:ultisnips_python_style = "doxygen"
 " we don't want 256color when terminfo does not support
 if &t_Co > 2 || has("gui_running")
     syntax on
-    if (&term =~ 'rxvt-unicode' || &term =~ 'screen-256color')
+    if (&term =~ 'rxvt-unicode-256color' || &term =~ 'screen-256color')
         set t_Co=256
     endif
     if  &t_Co == 256
@@ -203,7 +206,7 @@ endif
 
 " set font and colorscheme for gvim
 if has("gui_running")
-    set guifont=Envy\ Code\ R\ 10
+    set guifont=\Envy \Code \R \10
 endif
 
 " set foldmethod for files with syntax hiliting 

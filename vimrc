@@ -15,7 +15,7 @@ se ff=unix fileencoding=utf-8 encoding=utf-8
 se formatprg=par\ -w79r pastetoggle=<f10>
 se wildmenu wildmode=list:longest,full
 se completeopt=longest,menuone,preview
-se balloonexpr=Balloon() ballooneval
+"se balloonexpr=Balloon() ballooneval
 se incsearch ignorecase smartcase
 se autoread lazyredraw ttyfast
 se diffopt=filler,iwhite

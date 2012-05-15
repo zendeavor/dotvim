@@ -2,10 +2,6 @@
 	path   = bundle/surround
 	url    = https://github.com/tpope/vim-surround.git
         ignore = dirty
-[submodule "bundle/neocomplcache"]
-	path   = bundle/neocomplcache
-	url    = https://github.com/Shougo/neocomplcache.git
-        ignore = dirty
 [submodule "bundle/repeat"]
 	path   = bundle/repeat
 	url    = https://github.com/tpope/vim-repeat.git
@@ -97,4 +93,8 @@
 [submodule "bundle/ctrlp"]
 	path   = bundle/ctrlp
 	url    = git://github.com/kien/ctrlp.vim.git
+        ignore = dirty
+[submodule "bundle/ultisnips"]
+	path   = bundle/ultisnips
+	url    = https://github.com/SirVer/ultisnips
         ignore = dirty

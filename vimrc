@@ -139,22 +139,22 @@ nn <F11>  :TrinityToggleNERDTree<CR>
 "            \ col('.')-2) == col('.')-2)?\"\<lt><C-X>\<lt><C-O>\":\"\"<CR>"
 "            \ : "<CR>""
 " undo completion
-ino <expr> <C-g> neocomplcache#undo_completion()
+" ino <expr> <C-g> neocomplcache#undo_completion()
 " complete longest common string from completion list
-ino <expr> <C-l> neocomplcache#complete_common_string()
-ino <expr> <C-p> pumvisible() ? '<C-p>' :
-            \'<C-p><C-r>=pumvisible() ? "\<lt>Up>" : ""<CR>'
-ino <expr> <C-n> pumvisible() ? '<C-n>' :
-            \'<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-im <expr> <TAB> neocomplcache#sources#snippets_complete#expandable() ?
-            \"\<Plug>(neocomplcache_snippets_expand)" :pumvisible() ? 
-            \"\<C-n>" : "\<TAB>"
+" ino <expr> <C-l> neocomplcache#complete_common_string()
+" ino <expr> <C-p> pumvisible() ? '<C-p>' :
+"             \'<C-p><C-r>=pumvisible() ? "\<lt>Up>" : ""<CR>'
+" ino <expr> <C-n> pumvisible() ? '<C-n>' :
+"             \'<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+" im <expr> <TAB> neocomplcache#sources#snippets_complete#expandable() ?
+"             \"\<Plug>(neocomplcache_snippets_expand)" :pumvisible() ? 
+"             \"\<C-n>" : "\<TAB>"
 " im <C-k> <Plug>(neocomplcache_snippets_expand) " this didn't work as well as <tab> below
-ino <expr> <C-h> neocomplcache#smart_close_popup()."\<C-h>"
-ino <expr> <BS> neocomplcache#smart_close_popup()."\<C-h>"
-ino <expr> <C-y> neocomplcache#close_popup()
-ino <expr> <C-e> neocomplcache#cancel_popup()
-smap <C-k> <Plug>(neocomplcache_snippets_expand)
+" ino <expr> <C-h> neocomplcache#smart_close_popup()."\<C-h>"
+" ino <expr> <BS> neocomplcache#smart_close_popup()."\<C-h>"
+" ino <expr> <C-y> neocomplcache#close_popup()
+" ino <expr> <C-e> neocomplcache#cancel_popup()
+" smap <C-k> <Plug>(neocomplcache_snippets_expand)
 
 " variable settings
 " unset PAGER, so as to make vim handy as a pager
@@ -207,7 +207,7 @@ endif
 
 " set font and colorscheme for gvim
 if has("gui_running")
-    set guifont=\Envy \Code \R \10
+    set guifont=Envy\ Code\ R\ 10
 endif
 
 " set foldmethod for files with syntax hiliting 

@@ -98,3 +98,9 @@
 	path   = bundle/ultisnips
 	url    = https://github.com/SirVer/ultisnips
         ignore = dirty
+[submodule "bundle/vim-buffalo"]
+	path = bundle/vim-buffalo
+	url = https://github.com/Raimondi/vim-buffalo.git
+[submodule "bundle/vimple"]
+	path = bundle/vimple
+	url = https://github.com/dahu/vimple.git

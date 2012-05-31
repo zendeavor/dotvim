@@ -102,7 +102,7 @@ nn <c-k> <c-w>k
 nn <c-l> <c-w>l
 nn <c-h> <c-w>h
 " this was for a smart reason, but i forget why because
-" it is so similar to defaul movement keys...
+" it is so similar to default movement keys...
 nn j gj
 nn k gk
 " reverse colon and semi-colon because colon

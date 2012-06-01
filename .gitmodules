@@ -10,10 +10,6 @@
 	path   = bundle/unimpaired
 	url    = https://github.com/tpope/vim-unimpaired.git
         ignore = dirty
-[submodule "bundle/headlights"]
-	path   = bundle/headlights
-	url    = https://github.com/mbadran/headlights.git
-        ignore = dirty
 [submodule "bundle/ack"]
 	path   = bundle/ack
 	url    = https://github.com/mileszs/ack.vim.git
@@ -50,14 +46,6 @@
 	path   = bundle/tlib
 	url    = https://github.com/vim-scripts/tlib.git
         ignore = dirty
-[submodule "bundle/trinity"]
-	path   = bundle/trinity
-	url    = https://github.com/vim-scripts/trinity.vim.git
-        ignore = dirty
-[submodule "bundle/source-explorer"]
-	path   = bundle/source-explorer
-	url    = https://github.com/vim-scripts/Source-Explorer-srcexpl.vim.git
-        ignore = dirty
 [submodule "bundle/abolish"]
 	path   = bundle/abolish
 	url    = https://github.com/vim-scripts/abolish.vim.git
@@ -66,21 +54,9 @@
 	path   = bundle/commentary
 	url    = https://github.com/tpope/vim-commentary.git
         ignore = dirty
-[submodule "bundle/fuzzy-finder"]
-	path   = bundle/fuzzy-finder
-	url    = https://github.com/vim-scripts/FuzzyFinder.git
-        ignore = dirty
-[submodule "bundle/l9"]
-	path   = bundle/l9
-	url    = https://github.com/vim-scripts/L9.git
-        ignore = dirty
 [submodule "bundle/tskeleton"]
 	path   = bundle/tskeleton
 	url    = https://github.com/vim-scripts/tSkeleton.git
-        ignore = dirty
-[submodule "bundle/yankring"]
-	path   = bundle/yankring
-	url    = https://github.com/vim-scripts/YankRing.vim.git
         ignore = dirty
 [submodule "colors/molokai"]
 	path   = colors/molokai

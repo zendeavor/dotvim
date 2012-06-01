@@ -10,7 +10,7 @@ se foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 se backspace=2 cmdheight=1 laststatus=2 relativenumber showbreak=»
 se scrolloff=999 sidescroll=50 listchars+=precedes:<,extends:> 
 se showcmd showmode ruler cpoptions+=n$ shortmess+=atTWI more
-se shiftround preserveindent smartindent autoindent cindent
+se shiftround
 se tabstop=8 shiftwidth=4 softtabstop=4 expandtab smarttab
 se ff=unix fileencoding=utf-8 encoding=utf-8
 se formatprg=par\ -w79r pastetoggle=<f10>
@@ -70,7 +70,7 @@ let mapleader = ","
 " and comma might be handy when i learn what it does 
 vn <c-e> ,
 " source/edit vimrc
-nn <leader>vs :source $MYVIMRC<CR>:filetype detect<CR>:echo 'vimrc reloaded'<CR>
+nn <leader>vs :source $MYVIMRC<cr> | filetype detect | echo 'vimrc reloaded'
 nn <leader>ve :tabedit $MYVIMRC<CR>
 " open a new empty file in cwd
 nn <leader>e :enew<CR>
@@ -81,7 +81,7 @@ map <silent> <leader>P "+P
 cno jj <c-c>
 ino jj <esc>
 " ctrl-c claw hand sucks
-ino <leader>; <c-c>
+ino <leader>, <c-c>
 " change search mode to use <python/perl??> style regex
 nn / /\v
 vn / /\v
@@ -93,8 +93,8 @@ xn < <gv
 " tap v to return to normal mode
 vn v <esc>
 " open/close quickfix window
-nn <silent> <leader>qo :copen<CR>
-nn <silent> <leader>qc :cclose<CR>
+nn <silent> <leader>o :copen<CR>
+nn <silent> <leader>c :cclose<CR>
 " window movement
 nn <leader>w <C-w>v<C-w>l
 nn <c-j> <c-w>j
@@ -113,21 +113,12 @@ nn : ;
 " show indent guide
 nn <silent> <leader><bar> :call ToggleIndentGuidesTabs()<cr>
 nn <silent> <leader><bslash> :call ToggleIndentGuidesSpaces()<cr>
-" show yankring
-nn <silent> <leader>y :YRShow<CR>
 " use ack to search
 nn <leader>sa :Ack<space>
+" reselect after moving in visual
+vn [e [egv
+vn ]e ]egv
 
-" fuzzyfinder mappings
-nn <leader>f :FufFileWithCurrentBufferDir<CR>
-nn <leader>b :FufBuffer<CR>
-nn <leader>t :FufTaggedFile<CR>
-
-" trinity toggles
-nn <F8>   :TrinityToggleAll<CR>
-nn <F9>   :TrinityToggleSourceExplorer<CR>
-nn <F7>   :TrinityToggleTagList<CR>
-nn <F11>  :TrinityToggleNERDTree<CR> 
 
 
 " variable settings
@@ -152,7 +143,7 @@ let g:UltiSnipsSnippetDirectories = ["bundle/ultisnips/UltiSnips"]
 " which python version to use
 let g:UltiSnipsUsePythonVersion = 3
 " use doxygen style comments in snippet
-let g:ultisnips_python_style = "doxygen"
+" let g:ultisnips_python_style = "doxygen"
 
 " expressions
 " determine colorscheme based on TERM

@@ -8,9 +8,8 @@ call pathogen#helptags()
 se backup backupdir=~/.vim/backups dir=~/.vim/tmp undofile undodir=~/.vim/undo
 se foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 se backspace=2 cmdheight=1 laststatus=2 relativenumber showbreak=»
-se scrolloff=999 sidescroll=50 listchars+=precedes:<,extends:> 
+se scrolloff=999 sidescroll=50 listchars+=precedes:<,extends:>,tab:--,trail:. 
 se showcmd showmode ruler cpoptions+=n$ shortmess+=atTWI more
-se shiftround
 se tabstop=8 shiftwidth=4 softtabstop=4 expandtab smarttab
 se ff=unix fileencoding=utf-8 encoding=utf-8
 se formatprg=par\ -w79r pastetoggle=<f10>
@@ -23,6 +22,7 @@ se diffopt=filler,iwhite
 se commentstring=#\%s
 se visualbell t_vb=
 se virtualedit=all
+se shiftround
 se hidden
 
 "highlight Pmenu ctermbg=238 gui=bold
@@ -41,10 +41,10 @@ if has("autocmd")
     " set cwd to dir of current file in open buffer
     au BufEnter * silent! lcd %:p:h:gs/ /\\ /
     " make scripts starting with a shebang executable after saving
-    au BufWritePost * 
-                \ if getline(1) =~ "^#!" | 
-                \   exec 'silent !chmod u+x <afile>' | 
-                \ endif
+    " au BufWritePost * 
+    "             \ if getline(1) =~ "^#!" | 
+    "             \   exec 'silent !chmod u+x <afile>' | 
+    "             \ endif
     " write out changes to a file when focus is lost from that buffer
     au FocusLost * :wa
     " source vimrc right after it is saved to test changes
@@ -59,22 +59,24 @@ endif
 
 " command mode
 " :W will save current file with sudo for when i don't have write permissions
-command! -bar -nargs=0 W silent! exec "write !sudo tee % >/dev/null"  | silent! edit!
+command! -bar -nargs=0 W silent! exec "write !sudo dd of=% >/dev/null"  | silent! edit!
 " :Wrap will softwrap a file safely
 command! -nargs=* Wrap set wrap linebreak nolist
 
 " mappings
 " change leader key from \ (backslash) to , (comma)
-let mapleader = ","
+let mapleader = ","                 
 " substitute ctrl-e in visual mode for comma because ctrl-e is useless
 " and comma might be handy when i learn what it does 
 vn <c-e> ,
+" make yanking with Y more logical (like D)
+nn Y y$
 " source/edit vimrc
-nn <leader>vs :source $MYVIMRC<cr> | filetype detect | echo 'vimrc reloaded'
+nn <leader>vs :source $MYVIMRC<cr> | filetype detect
 nn <leader>ve :tabedit $MYVIMRC<CR>
 " open a new empty file in cwd
 nn <leader>e :enew<CR>
-" paste from X clipboard <broken?>
+" paste from X clipboard
 map <silent> <leader>p "+p
 map <silent> <leader>P "+P
 " return to normal mode with jj 
@@ -82,14 +84,6 @@ cno jj <c-c>
 ino jj <esc>
 " ctrl-c claw hand sucks
 ino <leader>, <c-c>
-" change search mode to use <python/perl??> style regex
-nn / /\v
-vn / /\v
-" reselect text when indenting in visual and ex modes
-vn < <gv
-vn > >gv
-xn > >gv
-xn < <gv
 " tap v to return to normal mode
 vn v <esc>
 " open/close quickfix window
@@ -115,10 +109,6 @@ nn <silent> <leader><bar> :call ToggleIndentGuidesTabs()<cr>
 nn <silent> <leader><bslash> :call ToggleIndentGuidesSpaces()<cr>
 " use ack to search
 nn <leader>sa :Ack<space>
-" reselect after moving in visual
-vn [e [egv
-vn ]e ]egv
-
 
 
 " variable settings

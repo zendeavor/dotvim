@@ -1,4 +1,4 @@
-function! SyntaxBallon()
+function! SyntaxBalloon()
     let synID   = synID(v:beval_lnum, v:beval_col, 0)
     let groupID = synIDtrans(synID)
     let name    = synIDattr(synID, "name")
@@ -31,7 +31,7 @@ function! Balloon()
     if foldclosed(v:beval_lnum) >= 0
         return FoldBalloon()
     else
-        return SyntaxBallon()
+        return SyntaxBalloon()
 endfunction
 
 function! ToggleIndentGuidesTabs()
@@ -58,11 +58,6 @@ function! ToggleIndentGuidesSpaces()
     endif
 endfunction
 
-if !exists('g:neocomplcache_keyword_patterns')
-    let g:neocomplcache_keyword_patterns = {}
-endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
 " Automatically create dir to write file to if it doesn't exist
 function! AutoMkDir()
     let required_dir = expand("<afile>:p:h")
@@ -82,27 +77,6 @@ function! AutoMkDir()
         endtry
     endif
 endfunction
-
-" delete buffer without closing window
-function! Bclose()
-    let curbufnr = bufnr("%")
-    let altbufnr = bufnr("#")
-
-    if buflisted(altbufnr)
-        buffer #
-    else
-        bnext
-    endif
-
-    if bufnr("%") == curbufnr
-        new
-    endif
-
-    if buflisted(curbufnr)
-        execute("bdelete! " . curbufnr)
-    endif
-endfunction
-
 
 " some colors
 let s:statuscolors = {

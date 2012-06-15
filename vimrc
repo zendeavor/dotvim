@@ -21,6 +21,7 @@ se autoread lazyredraw ttyfast
 se diffopt=filler,iwhite
 se commentstring=#\%s
 se visualbell t_vb=
+se nf+=alpha
 se virtualedit=all
 se shiftround
 se hidden

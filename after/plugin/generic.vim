@@ -303,14 +303,14 @@ let g:default_stl .= "#[LinePercent] %p%%"
 " Current syntax group
 "let g:default_stl .= "%{exists('g:synid') && g:synid ? '| '.synIDattr(synID(line('.'), col('.'), 1), 'name').' ' : ''}"
 
-" highlight characters starting at column 80
+" highlight characters starting at column 72
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%80v.\+/
+match OverLength /\%72v.\+/
 if exists('+colorcolumn')
     highlight ColorColumn ctermbg=darkgrey
     set colorcolumn=0
     " toggle colorcolumn
-    let s:color_column_old = "5,9,13,17,21,25,80"
+    let s:color_column_old = "5,9,13,17,21,25,72"
     function! s:ToggleMargin()
         if s:color_column_old == 0
             let s:color_column_old = &colorcolumn

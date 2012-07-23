@@ -1,6 +1,6 @@
 " Vim color file
 " Converted from Textmate theme Clouds Midnight using Coloration v0.2.4
-(http://github.com/sickill/coloration)
+" (http://github.com/sickill/coloration)
 
 set background=dark
 highlight clear

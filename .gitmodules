@@ -30,10 +30,6 @@
 	path   = bundle/tabular
 	url    = https://github.com/godlygeek/tabular.git
         ignore = dirty
-[submodule "bundle/autoclose"]
-	path   = bundle/autoclose
-	url    = https://github.com/Townk/vim-autoclose.git
-        ignore = dirty
 [submodule "bundle/rainbow_parentheses"]
 	path   = bundle/rainbow_parentheses
 	url    = https://github.com/vim-scripts/rainbow_parentheses.vim.git
@@ -77,6 +73,12 @@
 [submodule "bundle/vim-buffalo"]
 	path = bundle/vim-buffalo
 	url = https://github.com/Raimondi/vim-buffalo.git
+        ignore = dirty
 [submodule "bundle/vimple"]
 	path = bundle/vimple
 	url = https://github.com/dahu/vimple.git
+        ignore = dirty
+[submodule "bundle/delimitMate"]
+	path = bundle/delimitMate
+	url = https://github.com/Raimondi/delimitMate.git
+        ignore = dirty
